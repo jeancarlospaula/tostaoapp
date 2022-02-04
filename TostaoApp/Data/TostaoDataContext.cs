@@ -13,6 +13,6 @@ namespace TostaoApp.Data
         public DbSet<TransacaoModel> Transacaos{ get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseSqlServer("Server=LAPTOP-46EMOVH7;Database=TostaoApp;User ID=sa;Password=@Jean294");
+            => optionsBuilder.UseSqlServer("Server=;Database=;User ID=;Password=");
     }
 }

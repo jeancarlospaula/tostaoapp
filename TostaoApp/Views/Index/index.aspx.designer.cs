@@ -96,6 +96,15 @@ namespace TostaoApp.Views
         protected global::System.Web.UI.WebControls.TextBox txtValorTransacao;
 
         /// <summary>
+        /// Controle uppDdlSelect.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel uppDdlSelect;
+
+        /// <summary>
         /// Controle ddlReceita.
         /// </summary>
         /// <remarks>
@@ -112,6 +121,15 @@ namespace TostaoApp.Views
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlGasto;
+
+        /// <summary>
+        /// Controle uppLnkSalvar.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel uppLnkSalvar;
 
         /// <summary>
         /// Controle lnkSalvar.
