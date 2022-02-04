@@ -90,30 +90,37 @@
                     
                     <div class="select-campo">
                         <label for="ddlCategoria">Categoria*</label>
+                        <asp:UpdatePanel runat="server" ID="uppDdlSelect" updateMode="Conditional">
+                            <ContentTemplate>
+                                <div class="select-receita">
+                                    <asp:DropDownList ID="ddlReceita" CssClass="ddlReceita" runat="server" >
+                                        <asp:ListItem Text="" Value=""/>
+                                        <asp:ListItem Text="Receita" Value="r"/>
+                                    </asp:DropDownList>
+                                </div>
     
-                        <div class="select-receita">
-                            <asp:DropDownList ID="ddlReceita" CssClass="ddlReceita" runat="server" >
-                                <asp:ListItem Text="" Value=""/>
-                                <asp:ListItem Text="Receita" Value="r"/>
-                            </asp:DropDownList>
-                        </div>
-    
-                        <div class="select-gasto">
-                            <asp:DropDownList ID="ddlGasto" CssClass="ddlGasto" runat="server">
-                                <asp:ListItem Text="" Value=""/>
-                                <asp:ListItem Text="Casa" Value="c"/>
-                                <asp:ListItem Text="Educação" Value="e"/>
-                                <asp:ListItem Text="Lazer" Value="l"/>
-                                <asp:ListItem Text="Saúde" Value="s"/>
-                                <asp:ListItem Text="Transporte" Value="t"/>
-                            </asp:DropDownList>
-                        </div>
+                                <div class="select-gasto">
+                                    <asp:DropDownList ID="ddlGasto" CssClass="ddlGasto" runat="server">
+                                        <asp:ListItem Text="" Value=""/>
+                                        <asp:ListItem Text="Casa" Value="c"/>
+                                        <asp:ListItem Text="Educação" Value="e"/>
+                                        <asp:ListItem Text="Lazer" Value="l"/>
+                                        <asp:ListItem Text="Saúde" Value="s"/>
+                                        <asp:ListItem Text="Transporte" Value="t"/>
+                                    </asp:DropDownList>
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <a class="btnSalvar">Salvar</a>
                     <div style="display: none">
+                        <asp:UpdatePanel runat="server" ID="uppLnkSalvar">
+                            <ContentTemplate>
                                 <asp:LinkButton Text="Salvar" runat="server" ID="lnkSalvar" OnClick="lnkSalvar_Click"/>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </div>
                 </div>
             </div>
@@ -176,6 +183,9 @@ lnkNovoGasto.addEventListener('click', () => {
         if (txtValorTransacao.value != 0 && txtValorTransacao.value != "") {
             if ((hdnTransacaoTipo.value == "receita" && ddlReceita.value != "") || (hdnTransacaoTipo.value == "gasto" && ddlGasto.value != "")) {
                 lnkSalvar.click()
+                ddlReceita.selectedIndex = 0
+                ddlGasto.selectedIndex = 0
+                alert("Transação cadastrada com sucesso")
                 return false
             } else {
                 alert("Preencha os campos corretamente")
@@ -192,8 +202,8 @@ lnkNovoGasto.addEventListener('click', () => {
 
     lnkFechar.addEventListener('click', () => {
         txtValorTransacao.value = ""
-        ddlReceita.value = ""
-        ddlGasto.valu = ""
+        ddlReceita.selectedIndex = 0
+        ddlGasto.selectedIndex = 0
         hdnTransacaoTipo.value = ""
     })
 

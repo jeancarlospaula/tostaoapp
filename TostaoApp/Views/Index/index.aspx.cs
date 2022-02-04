@@ -51,9 +51,6 @@ namespace TostaoApp.Views
             atzValoresTransacao();
 
             txtValorTransacao.Text = "";
-            ddlReceita.SelectedIndex = 0;
-            ddlGasto.SelectedIndex = 0;
-            hdnTransacaoTipo.Value = "";
         }
 
         public void atzValoresTransacao()
@@ -65,10 +62,18 @@ namespace TostaoApp.Views
 
                 var totalGeral = totalReceita - totalGasto;
 
+                totalGeral = Math.Round(totalGeral, 2);
+                totalReceita = Math.Round(totalReceita, 2);
+                totalGasto = Math.Round(totalGasto, 2);
+
                 txtValorTotal.Text = totalGeral.ToString();
                 txtValorReceita.Text = totalReceita.ToString();
                 txtValorGasto.Text = totalGasto.ToString();
+
+                //Update boxes com informações das transações
                 uppValorTotal.Update();
+                uppValorReceita.Update();
+                uppValorGasto.Update();
             }
         }
     }
