@@ -1,4 +1,5 @@
 # Tostão App 💰
 Aplicativo web de controle de finanças.
 
-![To$tão (2)](https://user-images.githubusercontent.com/79765050/151897827-f1271067-e19e-483a-b3b5-31afff0e239a.png)
+
+![To$tão (1080 × 1080 px)](https://user-images.githubusercontent.com/79765050/152456967-ebf67ae4-8289-4b16-bbe9-b6c1ae812e58.png)
