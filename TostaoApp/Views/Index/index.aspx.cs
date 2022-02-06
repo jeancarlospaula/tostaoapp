@@ -16,10 +16,10 @@ namespace TostaoApp.Views
         protected void Page_Load(object sender, EventArgs e)
         {
             atzValoresTransacao();
+            carregaListaTransacao();
         }
 
-        public void lnkSalvar_Click(object sender, EventArgs e)
-        {
+        public void lnkSalvar_Click(object sender, EventArgs e){
             var valorTransacao = Decimal.Parse(txtValorTransacao.Text, CultureInfo.InvariantCulture);
             int categoriaTransacao = 0;
             int tipoTransacao = 0;
@@ -49,8 +49,13 @@ namespace TostaoApp.Views
 
             Program.AdicionarTransacao(valorTransacao, tipoTransacao, categoriaTransacao);
             atzValoresTransacao();
+            carregaListaTransacao();
 
             txtValorTransacao.Text = "";
+
+            uppValorTransacao.Update();
+
+            ScriptManager.RegisterStartupScript(this.Page, GetType(), "hwa", "limpaSelectTipo();", true);
         }
 
         public void atzValoresTransacao()
@@ -74,6 +79,35 @@ namespace TostaoApp.Views
                 uppValorTotal.Update();
                 uppValorReceita.Update();
                 uppValorGasto.Update();
+            }
+        }
+
+        public void carregaListaTransacao()
+        {
+            using (var context = new TostaoDataContext())
+            {
+                var lstTransacoes = context.Transacaos.ToList();
+
+                lsvTrasacao.DataSource = lstTransacoes;
+                lsvTrasacao.DataBind();
+
+                uppLsvTransacao.Update();
+            }
+        }
+
+        public void lnkExcluirTransacao_Click(object sender, EventArgs e)
+        {
+            using (var context = new TostaoDataContext())
+            {
+                LinkButton lnkTransacaoExcluir = sender as LinkButton;
+
+                var transacaoID = int.Parse(lnkTransacaoExcluir.CommandArgument);
+                var transacaoExcluir = context.Transacaos.Where((x) => x.Id == transacaoID).FirstOrDefault();
+
+                context.Remove(transacaoExcluir);
+                context.SaveChanges();
+                atzValoresTransacao();
+                carregaListaTransacao();
             }
         }
     }

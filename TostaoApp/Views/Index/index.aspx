@@ -23,53 +23,116 @@
         </header>
 
         <main>
-            <div class="info-valores">
-                <div class="total-value">
-                    <div class="total-info">
-                        <span>Total</span>
-                        <div class="total-input">
-                            <h3>R$</h3>
-                            <asp:UpdatePanel ID="uppValorTotal" runat="server" UpdateMode="Conditional">
-                                <ContentTemplate>
-                                    <asp:TextBox ID="txtValorTotal" runat="server" disabled="true" Text="0,00" />
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
+            <article id="arcOne">
+                <section id="secMensagemNome">
+                    <p>Menasgem</p>
+                </section>
+            </article>
+
+            <article id="arcTwo">
+                <section id="secValorReport">
+                    <div class="valoresTotal">
+                        <div class="info-valores">
+                    <div class="total-value">
+                        <div class="total-info">
+                            <span>Total</span>
+                            <div class="total-input">
+                                <h3>R$</h3>
+                                <asp:UpdatePanel ID="uppValorTotal" runat="server" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <asp:TextBox ID="txtValorTotal" runat="server" disabled="true" Text="0,00" />
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
                         </div>
                     </div>
-                </div>
     
-                <div class="receitas-value">
-                    <h1>▲</h1>
-                    <div>
-                        <span>Receita</span>
-                        <div class="receita-input">
-                            <h3>R$</h3>
-                            <asp:UpdatePanel ID="uppValorReceita" runat="server" UpdateMode="Conditional">
-                                <ContentTemplate>
-                                    <asp:TextBox ID="txtValorReceita" runat="server" disabled="true" Text="0,00" />
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
+                    <div class="receitas-value">
+                        <h1>▲</h1>
+                        <div>
+                            <span>Receita</span>
+                            <div class="receita-input">
+                                <h3>R$</h3>
+                                <asp:UpdatePanel ID="uppValorReceita" runat="server" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <asp:TextBox ID="txtValorReceita" runat="server" disabled="true" Text="0,00" />
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
                         </div>
+                        <a class="lnkNovaReceita">+</a>
                     </div>
-                    <a class="lnkNovaReceita">+</a>
-                </div>
     
-                <div class="gastos-value">
-                    <h1>▼</h1>
-                    <div>
-                        <span>Gastos</span>
-                        <div class="gasto-input">
-                            <h3>R$</h3>
-                            <asp:UpdatePanel ID="uppValorGasto" runat="server" UpdateMode="Conditional">
-                                <ContentTemplate>
-                                    <asp:TextBox ID="txtValorGasto" runat="server" disabled="true" Text="0,00" />
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
+                    <div class="gastos-value">
+                        <h1>▼</h1>
+                        <div>
+                            <span>Gastos</span>
+                            <div class="gasto-input">
+                                <h3>R$</h3>
+                                <asp:UpdatePanel ID="uppValorGasto" runat="server" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <asp:TextBox ID="txtValorGasto" runat="server" disabled="true" Text="0,00" />
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
                         </div>
+                        <a class="lnkNovoGasto">+</a>
                     </div>
-                    <a class="lnkNovoGasto">+</a>
                 </div>
-            </div>
+                    </div>
+                    <div class="reportFilter">
+                        <p>Relatório</p>
+                    </div>
+                </section>
+
+                <section id ="secListTransacao">
+                    <div class="divListTransacao">
+                    <asp:UpdatePanel runat="server" ID="uppLsvTransacao" UpdateMode="Conditional">
+                        <ContentTemplate>
+                                <asp:ListView runat="server" ID="lsvTrasacao" GroupPlaceholderID="groupPlaceholder" ItemPlaceholderID="itemPlaceholder">
+                                    <LayoutTemplate>
+                                        <table class="lstTable">
+                                            <tr class="lstHeader">
+                                                <th class="firstRow">Tipo</th>
+                                                <th>Valor</th>
+                                                <th>Categoria</th>
+                                                <th>Data</th>
+                                                <th class="secondRow">Ações</th>
+                                            </tr>
+                                            <tr id="groupPlaceholder" runat="server"></tr>
+                                        </table>
+                                    </LayoutTemplate>
+                                    <GroupTemplate>
+                                        <tr>
+                                            <tr id="itemPlaceholder" runat="server"></tr>
+                                        </tr>
+                                    </GroupTemplate>
+                                    <ItemTemplate>
+                                        <td class="firstRow td-receita"><%# (int)Eval("Tipo") == 1 ? "Receita" : "Gasto" %></td>
+                                        <td class="td-valor"><%# Eval("Valor") %></td>
+                                        <td><%# Eval("Categoria") %></td>
+                                        <td ><%# Eval("Data_transacao") %></td>
+                                        <td class="secondRow">
+                                            <asp:LinkButton CommandArgument='<%# Eval("Id") %>' CommandName="lnkTransacaoExcluir" runat="server" ID="lnkTransacaoExcluir" OnClick="lnkExcluirTransacao_Click">
+                                                    <i><img src="trash-icon.svg" alt="trash-icon" class="trash-icon"/></i>
+                                            </asp:LinkButton>
+                                        </td>
+                                    </ItemTemplate>
+                                </asp:ListView>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+                </section>
+
+                <section id="secGraficos">
+                    <div class="chartOne">
+                        <p>Gráfico 1</p>
+                    </div>
+                    <div class="chartTwo">
+                        <p>Gráfico 2</p>
+                    </div>
+                </section>
+            </article>
         </main>
 
         <div class="modal-background">
@@ -83,34 +146,45 @@
                         <label for="txtTransacao">Valor*</label>
                         <asp:UpdatePanel ID="uppValorTransacao" runat="server" UpdateMode="Conditional">
                             <ContentTemplate>
-                                <asp:TextBox ID="txtValorTransacao" CssClass="txtValorTransacao" runat="server" TextMode="number"/>
+                                <asp:TextBox ID="txtValorTransacao" CssClass="txtValorTransacao" runat="server" TextMode="number" />
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </div>
                     
                     <div class="select-campo">
+
                         <label for="ddlCategoria">Categoria*</label>
-                        <asp:UpdatePanel runat="server" ID="uppDdlSelect" updateMode="Conditional">
+
+                        <asp:UpdatePanel runat="server" ID="uppSelectReceita" updateMode="Conditional" ChildrenAsTriggers="false">
                             <ContentTemplate>
-                                <div class="select-receita">
-                                    <asp:DropDownList ID="ddlReceita" CssClass="ddlReceita" runat="server" >
-                                        <asp:ListItem Text="" Value=""/>
-                                        <asp:ListItem Text="Receita" Value="r"/>
-                                    </asp:DropDownList>
-                                </div>
-    
-                                <div class="select-gasto">
-                                    <asp:DropDownList ID="ddlGasto" CssClass="ddlGasto" runat="server">
-                                        <asp:ListItem Text="" Value=""/>
-                                        <asp:ListItem Text="Casa" Value="c"/>
-                                        <asp:ListItem Text="Educação" Value="e"/>
-                                        <asp:ListItem Text="Lazer" Value="l"/>
-                                        <asp:ListItem Text="Saúde" Value="s"/>
-                                        <asp:ListItem Text="Transporte" Value="t"/>
-                                    </asp:DropDownList>
-                                </div>
+
+                                    <div class="select-receita" id="selectReceita">
+                                        <asp:DropDownList ID="ddlReceita" CssClass="ddlReceita" runat="server" >
+                                            <asp:ListItem Text="Selecione a receita" Value="Selecione a receita"/>
+                                            <asp:ListItem Text="Receita" Value="r"/>
+                                        </asp:DropDownList>
+                                    </div>
+
                             </ContentTemplate>
                         </asp:UpdatePanel>
+
+                        <asp:UpdatePanel runat="server" ID="uppSelectGasto" updateMode="Conditional" ChildrenAsTriggers="false">
+                            <ContentTemplate>
+
+                                    <div class="select-gasto" id="selectGasto">
+                                        <asp:DropDownList ID="ddlGasto" CssClass="ddlGasto" runat="server">
+                                            <asp:ListItem Text="Selecione o gasto" Value="Selecione o gasto"/>
+                                            <asp:ListItem Text="Casa" Value="c"/>
+                                            <asp:ListItem Text="Educação" Value="e"/>
+                                            <asp:ListItem Text="Lazer" Value="l"/>
+                                            <asp:ListItem Text="Saúde" Value="s"/>
+                                            <asp:ListItem Text="Transporte" Value="t"/>
+                                        </asp:DropDownList>
+                                    </div>
+
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -140,6 +214,9 @@ lnkFecharModal.addEventListener('click', fecharModal)
 
 function fecharModal(){
     modalTransacao.style.display = "none"
+    txtValorTransacao.value = ""
+    limpaSelectTipo()
+    hdnTransacaoTipo.value = ""
 }
 
 //ABRIR MODAL TRANSAÇÃO
@@ -149,65 +226,62 @@ const modalHeaderText = document.getElementById('modal-header-text')
 const lnkNovaReceita = document.querySelector('.lnkNovaReceita')
 const lnkNovoGasto = document.querySelector('.lnkNovoGasto')
 
-const divSelectReceita = document.querySelector('.select-receita')
-const divSelectGasto = document.querySelector('.select-gasto')
 const hdnTransacaoTipo = document.getElementById("<%= hdnTransacaoTipo.ClientID %>")
 
-lnkNovaReceita.addEventListener('click', () => {
-    modalTransacao.style.display = "block"
-    divSelectReceita.style.display = "block"
-    divSelectGasto.style.display = "none"
-    modalHeaderText.textContent = "Adicionar Transação - Receita"
-    hdnTransacaoTipo.value = "receita"
+    const divSelectReceita = document.querySelector('.modal-body .select-campo #selectReceita')
+    const divSelectGasto   = document.querySelector('.modal-body .select-campo #selectGasto')
 
-})
+    lnkNovaReceita.addEventListener('click', adicionarNovaReceita)
+    lnkNovoGasto.addEventListener('click', adicionarNovoGasto)
 
-lnkNovoGasto.addEventListener('click', () => {
-    modalTransacao.style.display = "block"
-    divSelectReceita.style.display = "none"
-    divSelectGasto.style.display = "block"
-    modalHeaderText.textContent = "Adicionar Transação - Gasto"
-    hdnTransacaoTipo.value = "gasto"
-})
+    function adicionarNovaReceita() {
+        modalTransacao.style.display = "block"
+
+        divSelectReceita.style.display = "block"
+        divSelectGasto.style.display = "none"
+
+        hdnTransacaoTipo.value = "receita"
+
+        modalHeaderText.textContent = "Adicionar Transação - Receita"
+    }
+
+    function adicionarNovoGasto() {
+        modalTransacao.style.display = "block"
+
+        divSelectReceita.style.display = "none"
+        divSelectGasto.style.display = "block"
+
+        hdnTransacaoTipo.value = "gasto"
+
+        modalHeaderText.textContent = "Adicionar Transação - Gasto"
+    }
 
 //BOTAO SALVAR
     const btnSalvar = document.querySelector('.modal-footer .btnSalvar')
 
     const lnkSalvar = document.getElementById("<%= lnkSalvar.ClientID %>") //botao do cs
-    const txtValorTransacao = document.querySelector('.valor-campo .txtValorTransacao')
-    const ddlReceita = document.querySelector('.select-campo #ddlReceita')
-    const ddlGasto = document.querySelector('.select-campo #ddlGasto')
 
 
     btnSalvar.addEventListener('click', () => {
-        if (txtValorTransacao.value != 0 && txtValorTransacao.value != "") {
-            if ((hdnTransacaoTipo.value == "receita" && ddlReceita.value != "") || (hdnTransacaoTipo.value == "gasto" && ddlGasto.value != "")) {
+        const txtValorTransacao = document.querySelector('.valor-campo .txtValorTransacao')
+        const ddlReceita = document.querySelector('.select-campo #ddlReceita')
+        const ddlGasto = document.querySelector('.select-campo #ddlGasto')
+
+        if ((txtValorTransacao.value != 0 && txtValorTransacao.value != "") && ((hdnTransacaoTipo.value == "receita" && ddlReceita.value != "Selecione a receita") || (hdnTransacaoTipo.value == "gasto" && ddlGasto.value != "Selecione o gasto"))) {
                 lnkSalvar.click()
-                ddlReceita.selectedIndex = 0
-                ddlGasto.selectedIndex = 0
                 alert("Transação cadastrada com sucesso")
                 return false
-            } else {
-                alert("Preencha os campos corretamente")
-                return false
-            }
         } else {
             alert("Preencha os campos corretamente")
             return false
         }
     })
 
-//BOTAO FECHAR MODAL TRANSACAO
-    const lnkFechar = document.querySelector('.modal-background #fecharModal')
-
-    lnkFechar.addEventListener('click', () => {
-        txtValorTransacao.value = ""
+//LIMPA SELECTS AO SALVAR (chamado pelo C#)
+    function limpaSelectTipo(){
         ddlReceita.selectedIndex = 0
         ddlGasto.selectedIndex = 0
-        hdnTransacaoTipo.value = ""
-    })
-
-
+    }
 </script>
 
     </body>
