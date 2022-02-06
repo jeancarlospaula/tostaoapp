@@ -78,6 +78,24 @@ namespace TostaoApp.Views
         protected global::System.Web.UI.WebControls.TextBox txtValorGasto;
 
         /// <summary>
+        /// Controle uppLsvTransacao.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel uppLsvTransacao;
+
+        /// <summary>
+        /// Controle lsvTrasacao.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListView lsvTrasacao;
+
+        /// <summary>
         /// Controle uppValorTransacao.
         /// </summary>
         /// <remarks>
@@ -96,13 +114,13 @@ namespace TostaoApp.Views
         protected global::System.Web.UI.WebControls.TextBox txtValorTransacao;
 
         /// <summary>
-        /// Controle uppDdlSelect.
+        /// Controle uppSelectReceita.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel uppDdlSelect;
+        protected global::System.Web.UI.UpdatePanel uppSelectReceita;
 
         /// <summary>
         /// Controle ddlReceita.
@@ -112,6 +130,15 @@ namespace TostaoApp.Views
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlReceita;
+
+        /// <summary>
+        /// Controle uppSelectGasto.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel uppSelectGasto;
 
         /// <summary>
         /// Controle ddlGasto.
