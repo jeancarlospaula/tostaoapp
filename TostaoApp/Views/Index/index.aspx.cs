@@ -95,16 +95,14 @@ namespace TostaoApp.Views
 
         public void lnkExcluirTransacao_Click(object sender, EventArgs e)
         {
-            using (var context = new TostaoDataContext())
-            {
-                LinkButton lnkTransacaoExcluir = sender as LinkButton;
+              LinkButton lnkTransacaoExcluir = sender as LinkButton;
+              
+              var transacaoID = int.Parse(lnkTransacaoExcluir.CommandArgument);
 
-                var transacaoID = int.Parse(lnkTransacaoExcluir.CommandArgument);
+              TransacaoController.ExcluirTransacao(transacaoID);
 
-                TransacaoController.ExcluirTransacao(transacaoID);
-
-                atzValoresTransacao();
-                carregaListaTransacao();
+              atzValoresTransacao();
+              carregaListaTransacao();
 
             }
         }
