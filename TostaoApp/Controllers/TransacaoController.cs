@@ -32,10 +32,6 @@ namespace TransacaoData
 
                 context.Remove(transacaoExcluir);
                 context.SaveChanges();
-
-                var index = new TostaoApp.Views.index();
-                index.atzValoresTransacao();
-                index.carregaListaTransacao();
             }
         }
     }
