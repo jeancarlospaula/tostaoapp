@@ -1,10 +1,12 @@
 ﻿using System;
 using TostaoApp.Data;
 using TostaoApp.Models;
+using System.Linq;
+using TostaoApp;
 
 namespace TransacaoData
 {
-    public class Program
+    public class TransacaoController
     {
         public static void AdicionarTransacao(decimal valor, int tipo, int categoria)
         {
@@ -19,6 +21,21 @@ namespace TransacaoData
 
                 context.Add(transacao);
                 context.SaveChanges();
+            }
+        }
+
+        public static void ExcluirTransacao(int transacaoID)
+        {
+            using (var context = new TostaoDataContext())
+            {
+                var transacaoExcluir = context.Transacaos.Where((x) => x.Id == transacaoID).FirstOrDefault();
+
+                context.Remove(transacaoExcluir);
+                context.SaveChanges();
+
+                var index = new TostaoApp.Views.index();
+                index.atzValoresTransacao();
+                index.carregaListaTransacao();
             }
         }
     }

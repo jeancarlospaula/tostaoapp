@@ -47,7 +47,7 @@ namespace TostaoApp.Views
 
 
 
-            Program.AdicionarTransacao(valorTransacao, tipoTransacao, categoriaTransacao);
+            TransacaoController.AdicionarTransacao(valorTransacao, tipoTransacao, categoriaTransacao);
             atzValoresTransacao();
             carregaListaTransacao();
 
@@ -97,18 +97,11 @@ namespace TostaoApp.Views
 
         public void lnkExcluirTransacao_Click(object sender, EventArgs e)
         {
-            using (var context = new TostaoDataContext())
-            {
-                LinkButton lnkTransacaoExcluir = sender as LinkButton;
+            LinkButton lnkTransacaoExcluir = sender as LinkButton;
 
-                var transacaoID = int.Parse(lnkTransacaoExcluir.CommandArgument);
-                var transacaoExcluir = context.Transacaos.Where((x) => x.Id == transacaoID).FirstOrDefault();
+            var transacaoID = int.Parse(lnkTransacaoExcluir.CommandArgument);
 
-                context.Remove(transacaoExcluir);
-                context.SaveChanges();
-                atzValoresTransacao();
-                carregaListaTransacao();
-            }
+            TransacaoController.ExcluirTransacao(transacaoID);
         }
     }
 }
