@@ -9,10 +9,17 @@ body {
 }
 
 header {
-    background-color: #FFDE59;
+    background-color: #FFCB00;
     height: 3rem;
     width: 100vw;
     border-radius: 0 0 15px 15px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: calc(100vh - 3rem);
 }
 
 container.header-info {
@@ -39,12 +46,52 @@ container.header-info {
         color: black;
     }
 
+/*MAIN*/
+
+#arcTwo{
+    display: flex
+}
+
+#secValorReport, #secGraficos{
+    width: 30%
+}
+
+#secListTransacao {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    height: 530px;
+    overflow: auto;
+}
+
+.valoresTotal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reportFilter {
+    height: 220px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.chartOne, .chartTwo {
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 /*CARTÕES VALORES*/
 .info-valores {
     display: inline-flex;
     flex-direction: column;
     gap: 10px;
-    margin: 50px 0 0 50px;
+    background-color: gainsboro;
+    padding: 30px 15px;
+    box-shadow: rgba(0, 0, 0, 0.24) 4px 4px 5px;
+    border-radius: 8px;
 }
 
 .total-value, .receitas-value, .gastos-value {
@@ -187,7 +234,7 @@ flex-direction: column;
     margin-top: 5px;
 }
 
-.modal-body .select-campo .select-receita{
+.none{
     display: none;
 }
 
@@ -212,4 +259,48 @@ flex-direction: column;
     display: flex;
     align-items: center;
     justify-content: end;
+}
+
+/*LISTA TRANSAÇÔES*/
+
+.lstTable {
+    border-collapse: collapse;
+    width: 500px;
+    text-align: center;
+}
+
+.lstHeader {
+    background-color: #FFCB00;
+}
+
+.lstTable tr {
+    height: 30px;
+}
+.lstTable tr:nth-of-type(even) {
+    background-color: gainsboro;
+}
+
+.divListTransacao .td-receita{
+    text-align: left;
+}
+
+.divListTransacao .td-valor {
+    text-align: right;
+}
+
+.firstRow {
+    border-radius: 7px 0 0 7px;
+}
+
+.trash-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.trash-icon:hover {
+    color: #b30000;
+}
+
+.secondRow {
+    border-radius: 0 7px 7px 0;
 }

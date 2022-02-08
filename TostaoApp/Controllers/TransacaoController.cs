@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TostaoApp.Data;
 using TostaoApp.Models;
 using System.Linq;
@@ -35,3 +35,4 @@ namespace TransacaoData
         }
     }
 }
+

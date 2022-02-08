@@ -8,9 +8,9 @@ using TostaoApp.Models;
 
 namespace TostaoApp.Data
 {
-    public class TostaoDataContext:DbContext
+    public class TostaoDataContext : DbContext
     {
-        public DbSet<TransacaoModel> Transacaos{ get; set; }
+        public DbSet<TransacaoModel> Transacaos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseSqlServer("Server=;Database=;User ID=;Password=");
