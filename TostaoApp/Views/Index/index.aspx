@@ -114,7 +114,7 @@
                                         <td><%# Eval("Categoria") %></td>
                                         <td ><%# Eval("Data_transacao") %></td>
                                         <td class="secondRow">
-                                            <asp:UpdatePanel runat="server">
+                                            <asp:UpdatePanel updateMode="Conditional" runat="server">
                                                 <ContentTemplate>
                                                     <asp:LinkButton CommandArgument='<%# Eval("Id") %>' CommandName="lnkTransacaoExcluir" runat="server" ID="lnkTransacaoExcluir" OnClick="lnkExcluirTransacao_Click">
                                                             <i><img src="trash-icon.svg" alt="trash-icon" class="trash-icon"/></i>
@@ -282,7 +282,7 @@ const hdnTransacaoTipo = document.getElementById("<%= hdnTransacaoTipo.ClientID 
         }
     })
 
-//LIMPA SELECTS AO SALVAR (chamado pelo C#)
+//LIMPA SELECTS AO SALVAR
     function limpaSelectTipo(){
         ddlReceita.selectedIndex = 0
         ddlGasto.selectedIndex = 0
