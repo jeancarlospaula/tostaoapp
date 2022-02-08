@@ -45,9 +45,7 @@ namespace TostaoApp.Views
                 }
             }
 
-
-
-            Program.AdicionarTransacao(valorTransacao, tipoTransacao, categoriaTransacao);
+            TransacaoController.AdicionarTransacao(valorTransacao, tipoTransacao, categoriaTransacao);
             atzValoresTransacao();
             carregaListaTransacao();
 
@@ -55,7 +53,7 @@ namespace TostaoApp.Views
 
             uppValorTransacao.Update();
 
-            ScriptManager.RegisterStartupScript(this.Page, GetType(), "hwa", "limpaSelectTipo();", true);
+            ScriptManager.RegisterStartupScript(this.Page, GetType(), "function", "limpaSelectTipo();", true);
         }
 
         public void atzValoresTransacao()
@@ -102,12 +100,12 @@ namespace TostaoApp.Views
                 LinkButton lnkTransacaoExcluir = sender as LinkButton;
 
                 var transacaoID = int.Parse(lnkTransacaoExcluir.CommandArgument);
-                var transacaoExcluir = context.Transacaos.Where((x) => x.Id == transacaoID).FirstOrDefault();
 
-                context.Remove(transacaoExcluir);
-                context.SaveChanges();
+                TransacaoController.ExcluirTransacao(transacaoID);
+
                 atzValoresTransacao();
                 carregaListaTransacao();
+
             }
         }
     }

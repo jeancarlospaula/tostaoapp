@@ -5,6 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title>Dashboard | Tostão</title>
         <link href="./index.css" rel="stylesheet" />
+        <link rel="icon" type="image/x-icon" href="favicon.ico">    
     </head>
 
     <body>
@@ -96,7 +97,7 @@
                                                 <th class="firstRow">Tipo</th>
                                                 <th>Valor</th>
                                                 <th>Categoria</th>
-                                                <th>Data</th>
+                                                <th>Data - hora</th>
                                                 <th class="secondRow">Ações</th>
                                             </tr>
                                             <tr id="groupPlaceholder" runat="server"></tr>
@@ -113,9 +114,13 @@
                                         <td><%# Eval("Categoria") %></td>
                                         <td ><%# Eval("Data_transacao") %></td>
                                         <td class="secondRow">
-                                            <asp:LinkButton CommandArgument='<%# Eval("Id") %>' CommandName="lnkTransacaoExcluir" runat="server" ID="lnkTransacaoExcluir" OnClick="lnkExcluirTransacao_Click">
-                                                    <i><img src="trash-icon.svg" alt="trash-icon" class="trash-icon"/></i>
-                                            </asp:LinkButton>
+                                            <asp:UpdatePanel updateMode="Conditional" runat="server">
+                                                <ContentTemplate>
+                                                    <asp:LinkButton CommandArgument='<%# Eval("Id") %>' CommandName="lnkTransacaoExcluir" runat="server" ID="lnkTransacaoExcluir" OnClick="lnkExcluirTransacao_Click">
+                                                            <i><img src="trash-icon.svg" alt="trash-icon" class="trash-icon"/></i>
+                                                    </asp:LinkButton>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
                                         </td>
                                     </ItemTemplate>
                                 </asp:ListView>
@@ -160,7 +165,7 @@
 
                                     <div class="select-receita" id="selectReceita">
                                         <asp:DropDownList ID="ddlReceita" CssClass="ddlReceita" runat="server" >
-                                            <asp:ListItem Text="Selecione a receita" Value="Selecione a receita"/>
+                                            <asp:ListItem Text="" Value=""/>
                                             <asp:ListItem Text="Receita" Value="r"/>
                                         </asp:DropDownList>
                                     </div>
@@ -173,7 +178,7 @@
 
                                     <div class="select-gasto" id="selectGasto">
                                         <asp:DropDownList ID="ddlGasto" CssClass="ddlGasto" runat="server">
-                                            <asp:ListItem Text="Selecione o gasto" Value="Selecione o gasto"/>
+                                            <asp:ListItem Text="" Value=""/>
                                             <asp:ListItem Text="Casa" Value="c"/>
                                             <asp:ListItem Text="Educação" Value="e"/>
                                             <asp:ListItem Text="Lazer" Value="l"/>
@@ -267,7 +272,7 @@ const hdnTransacaoTipo = document.getElementById("<%= hdnTransacaoTipo.ClientID 
         const ddlReceita = document.querySelector('.select-campo #ddlReceita')
         const ddlGasto = document.querySelector('.select-campo #ddlGasto')
 
-        if ((txtValorTransacao.value != 0 && txtValorTransacao.value != "") && ((hdnTransacaoTipo.value == "receita" && ddlReceita.value != "Selecione a receita") || (hdnTransacaoTipo.value == "gasto" && ddlGasto.value != "Selecione o gasto"))) {
+        if ((txtValorTransacao.value != 0 && txtValorTransacao.value != "") && ((hdnTransacaoTipo.value == "receita" && ddlReceita.value != "") || (hdnTransacaoTipo.value == "gasto" && ddlGasto.value != ""))) {
                 lnkSalvar.click()
                 alert("Transação cadastrada com sucesso")
                 return false
@@ -277,7 +282,7 @@ const hdnTransacaoTipo = document.getElementById("<%= hdnTransacaoTipo.ClientID 
         }
     })
 
-//LIMPA SELECTS AO SALVAR (chamado pelo C#)
+//LIMPA SELECTS AO SALVAR
     function limpaSelectTipo(){
         ddlReceita.selectedIndex = 0
         ddlGasto.selectedIndex = 0
