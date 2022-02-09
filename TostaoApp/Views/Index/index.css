@@ -280,14 +280,6 @@ flex-direction: column;
     background-color: gainsboro;
 }
 
-.divListTransacao .td-receita{
-    text-align: left;
-}
-
-.divListTransacao .td-valor {
-    text-align: right;
-}
-
 .firstRow {
     border-radius: 7px 0 0 7px;
 }

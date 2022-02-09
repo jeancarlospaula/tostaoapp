@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using TransacaoData;
 using Enumeration;
 using TostaoApp.Data;
+using TostaoApp.Classes;
 
 namespace TostaoApp.Views
 {
@@ -53,7 +54,7 @@ namespace TostaoApp.Views
 
             uppValorTransacao.Update();
 
-            ScriptManager.RegisterStartupScript(this.Page, GetType(), "function", "limpaSelectTipo();", true);
+            ScriptManager.RegisterStartupScript(this.Page, GetType(), "function", "limpaSelectTipo(); fecharModal()", true);
         }
 
         public void atzValoresTransacao()
@@ -84,7 +85,19 @@ namespace TostaoApp.Views
         {
             using (var context = new TostaoDataContext())
             {
-                var lstTransacoes = context.Transacaos.ToList();
+                var query = from trans in context.Transacaos
+                                       join cat in context.Categorias on trans.Categoria equals cat.Categoria_id
+                                       join tipo in context.Tipos on cat.Tipo equals tipo.Tipo_id
+                                       select new TransacaoItem
+                                       {
+                                           Id = trans.Id,
+                                           Tipo = tipo.Tipo_nome,
+                                           Categoria = cat.Categoria_nome,
+                                           Valor = trans.Valor,
+                                           Data_transacao = trans.Data_transacao
+                                       };
+
+                var lstTransacoes = query.ToList();
 
                 lsvTrasacao.DataSource = lstTransacoes;
                 lsvTrasacao.DataBind();
@@ -103,8 +116,6 @@ namespace TostaoApp.Views
 
               atzValoresTransacao();
               carregaListaTransacao();
-
-            }
         }
     }
 }
