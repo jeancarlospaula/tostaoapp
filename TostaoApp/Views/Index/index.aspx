@@ -109,8 +109,8 @@
                                         </tr>
                                     </GroupTemplate>
                                     <ItemTemplate>
-                                        <td class="firstRow td-receita"><%# (int)Eval("Tipo") == 1 ? "Receita" : "Gasto" %></td>
-                                        <td class="td-valor"><%# Eval("Valor") %></td>
+                                        <td class="firstRow td-receita"><%# Eval("Tipo") %></td>
+                                        <td><%# Math.Round((decimal)Eval("Valor"), 2) %></td>
                                         <td><%# Eval("Categoria") %></td>
                                         <td ><%# Eval("Data_transacao") %></td>
                                         <td class="secondRow">
