@@ -26,7 +26,7 @@
         <main>
             <article id="arcOne">
                 <section id="secMensagemNome">
-                    <p>Menasgem</p>
+                    <p>Bem-vindo(a) ao seu <strong>Dashboard Financeiro</strong>, Jean!</p>
                 </section>
             </article>
 
@@ -82,7 +82,7 @@
                 </div>
                     </div>
                     <div class="reportFilter">
-                        <p>Relatório</p>
+                        <p></p>
                     </div>
                 </section>
 
@@ -123,6 +123,9 @@
                                             </asp:UpdatePanel>
                                         </td>
                                     </ItemTemplate>
+                                    <EmptyDataTemplate>
+                                        <p class="defaultListviewMensagem">Nenhuma transação encontrada</p>
+                                    </EmptyDataTemplate>
                                 </asp:ListView>
                         </ContentTemplate>
                     </asp:UpdatePanel>
@@ -131,10 +134,22 @@
 
                 <section id="secGraficos">
                     <div class="chartOne">
-                        <p>Gráfico 1</p>
+                        <asp:UpdatePanel ID="uppChartOne" updateMode="Conditional" runat="server">
+                            <ContentTemplate>
+                                <div class="chartBoxOne">
+                                  <canvas id="chartReceitaGasto"></canvas>
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </div>
                     <div class="chartTwo">
-                        <p>Gráfico 2</p>
+                       <asp:UpdatePanel ID="uppChartTwo" updateMode="Conditional" runat="server">
+                            <ContentTemplate>
+                                 <div class="chartBoxTwo">
+                                  <canvas id="chartTransacoesTipo"></canvas>
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </div>
                 </section>
             </article>
@@ -206,10 +221,19 @@
         </div>
         <div style="display: none">
             <asp:HiddenField Value="" ID="hdnTransacaoTipo" runat="server"/>
+            <a id="lnkCarregaGraficos"></a>
+            <asp:UpdatePanel ChildrenAsTriggers="false" updateMode="Conditional" runat="server">
+                <ContentTemplate>
+                    <asp:Button ID="btnCarregarGraficos" runat="server" OnClick="btnCarregarGraficos_Click"/>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </div>
     </form>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    window.onload = carregaGraficos();
+
 //FECHAR MODAL TRANSAÇÃO
 
 const lnkFecharModal = document.querySelector('.modal-header #fecharModal')
@@ -266,7 +290,6 @@ const hdnTransacaoTipo = document.getElementById("<%= hdnTransacaoTipo.ClientID 
 
     const lnkSalvar = document.getElementById("<%= lnkSalvar.ClientID %>") //botao do cs
 
-
     btnSalvar.addEventListener('click', () => {
         const txtValorTransacao = document.querySelector('.valor-campo .txtValorTransacao')
         const ddlReceita = document.querySelector('.select-campo #ddlReceita')
@@ -286,6 +309,87 @@ const hdnTransacaoTipo = document.getElementById("<%= hdnTransacaoTipo.ClientID 
     function limpaSelectTipo(){
         ddlReceita.selectedIndex = 0
         ddlGasto.selectedIndex = 0
+    }
+
+
+//===================  GRAFICOS ==============================
+
+    function carregaGraficos() {
+        var btnCarregarGraficos = document.getElementById("<%= btnCarregarGraficos.ClientID %>");
+        btnCarregarGraficos.click();
+        return false;
+    }
+
+
+    function atualizaGraficoReceitaGasto(valorReceita, valorGasto) {
+        const labelsChartOne = [
+            'Receita',
+            'Gastos'
+        ];
+
+        const dataChartOne = {
+            labels: labelsChartOne,
+            datasets: [{
+                label: 'Receita x Gastos',
+                backgroundColor: ['#FFCB00', '#FFDE59'],
+                borderColor: 'gray',
+                data: [parseFloat(valorReceita.replace(',', '.')),
+                    parseFloat(valorGasto.replace(',', '.'))],
+            }]
+        };
+
+        const configChartOne = {
+            type: 'pie',
+            data: dataChartOne,
+            options: {}
+        };
+
+        const chartReceitaGasto = new Chart(
+            document.getElementById('chartReceitaGasto'),
+            configChartOne
+        );
+
+        chartReceitaGasto.update();
+    }
+
+    //TRANSAÇÔES TIPO
+    function atualizaGraficosValoresCategoria(valorReceita, valorCasa, valorEducacao, valorLazer, valorTransporte, valorSaude) {
+        const labelsChartTwo = [
+            'Receita',
+            'Casa',
+            'Educação',
+            'Lazer',
+            'Saúde',
+            'Transporte'
+        ];
+
+        const dataChartTwo = {
+            labels: labelsChartTwo,
+            datasets: [{
+                label: 'Transações x Tipo',
+                backgroundColor: ['#FFCB00', '#FFDE59'],
+                borderColor: 'gray',
+                data: [parseFloat(valorReceita.replace(',', '.')),
+                    parseFloat(valorCasa.replace(',', '.')),
+                    parseFloat(valorEducacao.replace(',', '.')),
+                    parseFloat(valorLazer.replace(',', '.')),
+                    parseFloat(valorTransporte.replace(',', '.')),
+                    parseFloat(valorSaude.replace(',', '.'))],
+            }]
+        };
+
+        const configChartTwo = {
+            type: 'bar',
+            data: dataChartTwo,
+            options: {
+                indexAxis: 'y',
+            }
+        };
+
+        const chartTransacaoTipo = new Chart(
+            document.getElementById('chartTransacoesTipo'),
+            configChartTwo
+        );
     }
 </script>
 

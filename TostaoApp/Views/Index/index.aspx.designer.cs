@@ -96,6 +96,24 @@ namespace TostaoApp.Views
         protected global::System.Web.UI.WebControls.ListView lsvTrasacao;
 
         /// <summary>
+        /// Controle uppChartOne.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel uppChartOne;
+
+        /// <summary>
+        /// Controle uppChartTwo.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel uppChartTwo;
+
+        /// <summary>
         /// Controle uppValorTransacao.
         /// </summary>
         /// <remarks>
@@ -175,5 +193,14 @@ namespace TostaoApp.Views
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnTransacaoTipo;
+
+        /// <summary>
+        /// Controle btnCarregarGraficos.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCarregarGraficos;
     }
 }

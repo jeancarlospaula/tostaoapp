@@ -21,40 +21,56 @@ namespace TostaoApp.Views
         }
 
         public void lnkSalvar_Click(object sender, EventArgs e){
-            var valorTransacao = Decimal.Parse(txtValorTransacao.Text, CultureInfo.InvariantCulture);
-            int categoriaTransacao = 0;
-            int tipoTransacao = 0;
+            var TransacaoController = new TransacaoController();
 
-            if (hdnTransacaoTipo.Value == "receita") {
-                tipoTransacao = (int)Enumeration.TransacaoTipo.Receita;
+                var valorTransacao = Decimal.Parse(txtValorTransacao.Text, CultureInfo.InvariantCulture);
+                int categoriaTransacao = 0;
+                int tipoTransacao = 0;
 
-                switch (ddlReceita.SelectedValue)
+                if (hdnTransacaoTipo.Value == "receita")
                 {
-                    case "r": categoriaTransacao = (int)Enumeration.TransacaoCategoria.Receita; break;
-                }
-            }
-            else {
-                tipoTransacao = (int)Enumeration.TransacaoTipo.Gasto;
+                    tipoTransacao = (int)Enumeration.TransacaoTipo.Receita;
 
-                switch (ddlGasto.SelectedValue)
+                    switch (ddlReceita.SelectedValue)
+                    {
+                        case "r": categoriaTransacao = (int)Enumeration.TransacaoCategoria.Receita; break;
+                    }
+                }
+                else
                 {
-                    case "c": categoriaTransacao = (int)Enumeration.TransacaoCategoria.Casa; break;
-                    case "e": categoriaTransacao = (int)Enumeration.TransacaoCategoria.Educacao; break;
-                    case "l": categoriaTransacao = (int)Enumeration.TransacaoCategoria.Lazer; break;
-                    case "s": categoriaTransacao = (int)Enumeration.TransacaoCategoria.Saude; break;
-                    case "t": categoriaTransacao = (int)Enumeration.TransacaoCategoria.Transporte; break;
+                    tipoTransacao = (int)Enumeration.TransacaoTipo.Gasto;
+
+                    switch (ddlGasto.SelectedValue)
+                    {
+                        case "c": categoriaTransacao = (int)Enumeration.TransacaoCategoria.Casa; break;
+                        case "e": categoriaTransacao = (int)Enumeration.TransacaoCategoria.Educacao; break;
+                        case "l": categoriaTransacao = (int)Enumeration.TransacaoCategoria.Lazer; break;
+                        case "s": categoriaTransacao = (int)Enumeration.TransacaoCategoria.Saude; break;
+                        case "t": categoriaTransacao = (int)Enumeration.TransacaoCategoria.Transporte; break;
+                    }
                 }
-            }
 
-            TransacaoController.AdicionarTransacao(valorTransacao, tipoTransacao, categoriaTransacao);
-            atzValoresTransacao();
-            carregaListaTransacao();
+                TransacaoController.AdicionarTransacao(valorTransacao, tipoTransacao, categoriaTransacao);
+                atzValoresTransacao();
+                carregaListaTransacao();
 
-            txtValorTransacao.Text = "";
+                txtValorTransacao.Text = "";
 
-            uppValorTransacao.Update();
+                uppValorTransacao.Update();
 
-            ScriptManager.RegisterStartupScript(this.Page, GetType(), "function", "limpaSelectTipo(); fecharModal()", true);
+
+            var lstValoresReceitaGasto = TransacaoController.carregaValoresReceitaGasto();
+            var lstValoresCategorias = TransacaoController.carregaValoresCategorias();
+
+            ScriptManager.RegisterStartupScript(this.Page, GetType(), "lnkSalvar_Click", 
+            $"limpaSelectTipo(); " +
+            $"fecharModal();" +
+            $"atualizaGraficoReceitaGasto('{lstValoresReceitaGasto[0]}', '{lstValoresReceitaGasto[1]}');" +
+            $"atualizaGraficosValoresCategoria('{lstValoresCategorias[0]}','{lstValoresCategorias[1]}','{lstValoresCategorias[2]}','{lstValoresCategorias[3]}','{lstValoresCategorias[4]}','{lstValoresCategorias[5]}');", 
+            true);
+
+            uppChartOne.Update();
+            uppChartTwo.Update();
         }
 
         public void atzValoresTransacao()
@@ -116,6 +132,19 @@ namespace TostaoApp.Views
 
               atzValoresTransacao();
               carregaListaTransacao();
+        }
+           
+        public void btnCarregarGraficos_Click(object sender, EventArgs e)
+        {
+            var TransacaoController = new TransacaoController();
+
+            var lstValoresReceitaGasto = TransacaoController.carregaValoresReceitaGasto();
+            var lstValoresCategorias = TransacaoController.carregaValoresCategorias();
+
+            ScriptManager.RegisterStartupScript(this.Page,GetType(), "btnCarregarGraficos_Click", 
+                $"atualizaGraficoReceitaGasto('{lstValoresReceitaGasto[0]}', '{lstValoresReceitaGasto[1]}');" +
+                $"atualizaGraficosValoresCategoria('{lstValoresCategorias[0]}','{lstValoresCategorias[1]}','{lstValoresCategorias[2]}','{lstValoresCategorias[3]}','{lstValoresCategorias[4]}','{lstValoresCategorias[5]}');",
+                true);
         }
     }
 }
