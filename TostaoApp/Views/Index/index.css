@@ -18,7 +18,7 @@ header {
 main {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-start;
     height: calc(100vh - 3rem);
 }
 
@@ -47,6 +47,13 @@ container.header-info {
     }
 
 /*MAIN*/
+
+#arcOne {
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 #arcTwo{
     display: flex
@@ -77,12 +84,7 @@ container.header-info {
     display: flex;
 }
 
-.chartOne, .chartTwo {
-    height: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+
 /*CARTÕES VALORES*/
 .info-valores {
     display: inline-flex;
@@ -295,4 +297,23 @@ flex-direction: column;
 
 .secondRow {
     border-radius: 0 7px 7px 0;
+}
+
+.defaultListviewMensagem{
+    font-weight: bold;
+}
+/*GRAFICOS*/
+.chartOne, .chartTwo {
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chartBoxOne{
+    width: 15rem;
+}
+
+.chartBoxTwo {
+    width: 22rem;
 }
